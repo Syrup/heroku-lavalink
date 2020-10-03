@@ -1,5 +1,5 @@
 server: # REST and WS server
-  port: DYNAMICPORT
+  port: 2333
   address: 0.0.0.0
 lavalink:
   server:
@@ -38,8 +38,8 @@ sentry:
 
 logging:
   file:
-    max-history: 5
-    max-size: 5MB
+    max-history: 30
+    max-size: 1GB
   path: ./logs/
 
   level:
