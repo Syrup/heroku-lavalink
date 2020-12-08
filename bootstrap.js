@@ -50,5 +50,5 @@ function startLavalink() {
     });
 }
 
-const cdn = 'http://github.com/Frederikam/Lavalink/releases/download/3.3.2.2/Lavalink.jar'
+const cdn = 'https://ci.fredboat.com/repository/download/Lavalink_Build/.lastSuccessful/Lavalink.jar?branch=refs%2Fheads%2Fdev&guest=1'
 download(cdn, './Lavalink.jar', startLavalink)
