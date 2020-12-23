@@ -1,5 +1,6 @@
 const fs = require('fs')
-const http = require('http')
+const fetch = require('node-fetch')
+
 let application = fs.readFileSync('./application.yml', 'utf8')
 
 if (process.env.PORT) {
@@ -13,17 +14,14 @@ fs.writeFileSync('./application.yml', application)
 
 const download = function (url, dest, cb) { //modified code from https://stackoverflow.com/a/22907134
     const file = fs.createWriteStream(dest);
-    http.get(url, function (response) {
-        response.pipe(file);
+    fetch(url).then(res=>{
+        res.body.pipe(file)
         console.log('Downloading Lavalink.jar')
         file.on('finish', function () {
             console.log('Downloaded Lavalink.jar')
             file.close(cb);
         });
-    }).on('error', function (err) {
-        fs.unlinkSync(dest);
-        console.error(err)
-    });
+    })
 };
 
 function startLavalink() {
@@ -50,5 +48,11 @@ function startLavalink() {
     });
 }
 
-const cdn = 'http://cdn.glitch.com/a32c1578-23de-4ae0-af1f-f9e545f208cd%2FLavalink.jar?v=1607441320334'
-download(cdn, './Lavalink.jar', startLavalink)
+
+console.log('Fetching latest Lavalink.jar url...')
+fetch('https://api.github.com/repos/Frederikam/Lavalink/releases/latest')
+    .then(res => res.json())
+    .then(json => {
+        console.log('Found: '+json.assets[0].browser_download_url)
+        download(json.assets[0].browser_download_url, './Lavalink.jar', startLavalink)
+    });
