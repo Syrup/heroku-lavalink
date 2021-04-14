@@ -48,7 +48,7 @@ function startLavalink() {
     });
 }
 
-
+/*
 console.log('Fetching latest Lavalink.jar url...')
 fetch('https://api.github.com/repos/Frederikam/Lavalink/releases/latest')
     .then(res => res.json())
@@ -56,3 +56,5 @@ fetch('https://api.github.com/repos/Frederikam/Lavalink/releases/latest')
         console.log('Found: '+json.assets[0].browser_download_url)
         download(json.assets[0].browser_download_url, './Lavalink.jar', startLavalink)
     });
+*/
+startLavalink()
